@@ -9,7 +9,8 @@ class TTSCodec:
 
     def __init__(self):
 
-        d_path = snapshot_download("YaTharThShaRma999/pretrained_tts_tokenizers")
+        d_path = snapshot_download("YatharthS/MiraTTS")
+        d_path = f"{d_path}/decoders"
         self.audio_decoder = AudioDecoder(d_path)
         self.audio_encoder = AudioEncoder(d_path)
 
