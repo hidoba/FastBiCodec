@@ -31,8 +31,8 @@ class TTSCodec:
         return mixed_audio
     
     def format_prompt(self, text, context_tokens, extra_tokens, semantic_tokens=None, transcript=None):
-        if transcript:
-            prompt = f"<|task_tts|><|start_text|>{transcript}{text}<|end_text|><|context_audio_start|>{context_tokens}<|context_audio_end|><|prompt_speech_start|>{semantic_tokens}"
+        if semantic_tokens:
+            prompt = f"<|task_tts|><|start_text|>{text}<|end_text|><|context_audio_start|>{context_tokens}<|context_audio_end|><|prompt_speech_start|>{semantic_tokens}"
         else:
             prompt = f"<|task_tts|><|start_text|>{text}<|end_text|><|context_audio_start|>{context_tokens}<|context_audio_end|><|prompt_speech_start|>"
         return prompt
