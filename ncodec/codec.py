@@ -1,4 +1,5 @@
 import gc
+import os
 import torch
 import librosa
 import numpy as np
@@ -7,10 +8,10 @@ from ncodec.encoder.model import AudioEncoder
 from huggingface_hub import snapshot_download
 class TTSCodec:
 
-    def __init__(self):
-
-        d_path = snapshot_download("YatharthS/MiraTTS")
-        d_path = f"{d_path}/decoders"
+    def __init__(self, model_path=None):
+        if model_path is None or not os.path.isdir(model_path):
+            model_path = snapshot_download("YatharthS/MiraTTS")
+        d_path = f"{model_path}/decoders"
         self.audio_decoder = AudioDecoder(d_path)
         self.audio_encoder = AudioEncoder(d_path)
 
