@@ -4,16 +4,19 @@ import torch
 import librosa
 import numpy as np
 from ncodec.decoder.model import AudioDecoder
-from ncodec.encoder.model import AudioEncoder
 from huggingface_hub import snapshot_download
 class TTSCodec:
 
-    def __init__(self, model_path=None):
+    def __init__(self, model_path=None, load_encoder=True):
         if model_path is None or not os.path.isdir(model_path):
             model_path = snapshot_download("YatharthS/MiraTTS")
         d_path = f"{model_path}/decoders"
         self.audio_decoder = AudioDecoder(d_path)
-        self.audio_encoder = AudioEncoder(d_path)
+        if load_encoder:
+            from ncodec.encoder.model import AudioEncoder
+            self.audio_encoder = AudioEncoder(d_path)
+        else:
+            self.audio_encoder = None
 
 
     def encode(self, audio, encode_semantic=False, duration=8):
